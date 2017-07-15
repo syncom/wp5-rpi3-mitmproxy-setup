@@ -1,5 +1,14 @@
 # How to set up WiFi Pineapple on Raspberry Pi to MITM HTTP connections
 
+## References
+The setup procedures described in this document are based on the
+following references:
+
+* [WiFi Pineapple Mark V with Burp Proxy](http://hackedexistence.com/project/wifi-pineapple/wifi-pineapple-mk5-with-burp-proxy.html)
+* [Run mitmproxy on Raspberry Pi](https://hackaday.io/project/10338/instructions)
+* [Blog post: Raspberry Pineapple](http://snthenote.blogspot.com/2017/06/blog-post_19.html)
+
+
 ## Tools and Equipment
 * Wi-Fi Pineapple Mark V (WP-5)
 * Raspberry Pi 3 (RPI-3) running Raspbian Linux distro
@@ -13,7 +22,7 @@ On the RPI-3, 'wlan0' is the interface to the Internet, 'eth0' is the
 interface (wired) to the WP-5; the internet connection will be shared by
 the RPI-3 from `wlan0` to `eth0` to serve the WP-5.
 
-    ![wp5 on rpi3](img/raspberry-pineeapple.jpg "Raspberry Pineapple")
+![wp5 on rpi3](img/raspberry-pineeapple.jpg "Raspberry Pineapple")
 
 Download the script that configures iptables rules and executes it (no
 MITM proxy yet).
