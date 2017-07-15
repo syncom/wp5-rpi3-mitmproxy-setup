@@ -22,7 +22,7 @@ On the RPI-3, 'wlan0' is the interface to the Internet, 'eth0' is the
 interface (wired) to the WP-5; the internet connection will be shared by
 the RPI-3 from `wlan0` to `eth0` to serve the WP-5.
 
-![wp5 on rpi3](img/raspberry-pineeapple.jpg "Raspberry Pineapple")
+![wp5 on rpi3](img/raspberry-pineapple.jpg "Raspberry Pineapple")
 
 Download the script that configures iptables rules and executes it (no
 MITM proxy yet).
