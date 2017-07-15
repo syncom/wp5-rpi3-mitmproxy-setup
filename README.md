@@ -18,7 +18,7 @@ following references:
 
 Generally speaking, follow the instructions at
 https://www.hak5.org/episodes/pineapple-university/linux-internet-connection-sharing-wifi-pineapple-mark-v-pineapple-university.
-On the RPI-3, 'wlan0' is the interface to the Internet, 'eth0' is the
+On the RPI-3, `wlan0` is the interface to the Internet, `eth0` is the
 interface (wired) to the WP-5; the internet connection will be shared by
 the RPI-3 from `wlan0` to `eth0` to serve the WP-5.
 
