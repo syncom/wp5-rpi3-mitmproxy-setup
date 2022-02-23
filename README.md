@@ -1,6 +1,7 @@
 # How to set up WiFi Pineapple on Raspberry Pi to MITM HTTP connections
 
 ## References
+
 The setup procedures described in this document are based on the
 following references:
 
@@ -8,16 +9,17 @@ following references:
 * [Run mitmproxy on Raspberry Pi](https://hackaday.io/project/10338/instructions)
 * [Blog post: Raspberry Pineapple](http://snthenote.blogspot.com/2017/06/blog-post_19.html)
 
-
 ## Tools and Equipment
+
 * Wi-Fi Pineapple Mark V (WP-5)
 * Raspberry Pi 3 (RPI-3) running Raspbian Linux distro
 * [mitmprox](https://mitmproxy.org/), version 0.18.2, with python 2.7 on Raspbian.
 
 ## Connect WP-5 with RPI-3
 
-Generally speaking, follow the instructions at
-https://www.hak5.org/episodes/pineapple-university/linux-internet-connection-sharing-wifi-pineapple-mark-v-pineapple-university.
+Generally speaking, follow the instructions in this video: [Linux
+Internet Connection Sharing - WiFi Pineapple Mark V - Pineapple
+University](https://www.youtube.com/watch?v=f94FZSJs4ms).
 On the RPI-3, `wlan0` is the interface to the Internet, `eth0` is the
 interface (wired) to the WP-5; the internet connection will be shared by
 the RPI-3 from `wlan0` to `eth0` to serve the WP-5.
@@ -26,10 +28,11 @@ the RPI-3 from `wlan0` to `eth0` to serve the WP-5.
 
 Download the script that configures iptables rules and executes it (no
 MITM proxy yet).
-```
-    wget https://www.wifipineapple.com/wp5.sh
-    chmod u+x wp5.sh
-    sudo ./wp5.sh
+
+```bash
+wget https://www.wifipineapple.com/wp5.sh
+chmod u+x wp5.sh
+sudo ./wp5.sh
 ```
 
 It is usually safe to keep all default settings, except for the
@@ -42,8 +45,9 @@ configure the WP-5. Once the WP-5 is configured, for example, turn on
 ### How to play
 
 For example, to intercept all HTTP traffic through the WP-5, do
-```
-    sudo tcpdump -A -s 0 -i eth0 -w http_dump.pcap tcp port http
+
+```bash
+sudo tcpdump -A -s 0 -i eth0 -w http_dump.pcap tcp port http
 ```
 
 Here, '-A' means ouput in ASCII, '-s 0' means output all payload
@@ -53,41 +57,41 @@ only HTTP packets.
 
 Once enough data has been collected, use Wireshark or
 [foremost](https://linux.die.net/man/1/foremost) to analyze the pcap
-dump: `http_dump.pcap`. 
+dump: `http_dump.pcap`.
 
 ## Man-in-the-middle HTTP/HTTPS traffic
 
 1. Install `mitmproxy` on RPI-3 (use python 2 for example)
 
-```
-sudo aptitude install python-setuptools python-dev build-essential
-sudo easy_install pip
-sudo pip install mitmproxy==0.18.2
-```
+   ```bash
+   sudo aptitude install python-setuptools python-dev build-essential
+   sudo easy_install pip
+   sudo pip install mitmproxy==0.18.2
+   ```
 
 2. Run the modified WP-5 configuration script
 [wp5_mitmproxy.sh](src/wp5_mitmproxy.sh) to add port forwarding rules
-(from 80 and 443 to 8080, the port `mitmproxy` listens on by default). 
-```
-    cd src/
-    sudo ./wp5_mitmproxy.sh
-```
+(from 80 and 443 to 8080, the port `mitmproxy` listens on by default).
+
+   ```bash
+   cd src/
+   sudo ./wp5_mitmproxy.sh
+   ```
 
 Do a `diff wp5.sh wp5_mitmproxy.sh` to see the added rules for NAT port
 forwarding.
 
 3. Run `mitmproxy` and `mitmdump`.
-```
-    mitmproxy -T --host
-```
 
-You can watch the HTTP traffic from the console.
+   ```bash
+   mitmproxy -T --host
+   ```
 
-```
-    mitmdump -T -s hacked.py
-```
+   You can watch the HTTP traffic from the console.
 
-This will intercept the HTTP response, and add "HACKED!!!" text at the
-bottom of the page.
+   ```bash
+   mitmdump -T -s hacked.py
+   ```
 
-
+   This will intercept the HTTP response, and add "HACKED!!!" text at
+   the bottom of the page.
