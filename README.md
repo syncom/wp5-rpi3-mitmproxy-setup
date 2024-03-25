@@ -101,3 +101,9 @@ Once enough data has been collected, use Wireshark or
 
    This will intercept the HTTP response, and add "HACKED!!!" text at the bottom
    of the page.
+
+## Related tutorial
+
+* [How to set up mitmproxy for pentest in
+  Docker](https://github.com/syncom/mitmproxy-hermit): An example of setting up
+  `mitmproxy` for testing an application from inside a Docker image
